@@ -9,21 +9,23 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(Comment, { as: 'author', foreignKey: 'author_id' })
     }
 
-  };
+  }};
+  
   User.init({
     userId: {
       type: DataTypes.SMALLINT,
       primaryKey: true,
       autoIncrement: true
-
     },
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    underscored: true,
-    modelName: 'User',
-  });
-  return User;
-};
+    email: DataTypes.STRING,
+    role: {
+        type: DataTypes.ENUM,
+        values: [
+          'reviewer',
+          'admin',
+        ],
+    },
+    passwordDigest: DataTypes.STRING
+})
